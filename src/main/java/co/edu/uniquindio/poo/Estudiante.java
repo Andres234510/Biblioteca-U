@@ -19,4 +19,12 @@ public class Estudiante extends Persona {
     public List<Prestamo> consultarPrestamos() {
         return prestamosRealizados;
     }
+
+    public List<Prestamo> getPrestamosRealizados() {
+        return prestamosRealizados;
+    }
+
+    public void setPrestamosRealizados(List<Prestamo> prestamosRealizados) {
+        this.prestamosRealizados = prestamosRealizados;
+    }
 }

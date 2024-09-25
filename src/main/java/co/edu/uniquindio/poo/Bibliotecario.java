@@ -45,4 +45,8 @@ public class Bibliotecario extends Persona {
     public void setAntiguedad(int antiguedad) {
         this.antiguedad = antiguedad;
     }
+
+    public void setPrestamosRealizados(List<Prestamo> prestamosRealizados) {
+        this.prestamosRealizados = prestamosRealizados;
+    }
 }
