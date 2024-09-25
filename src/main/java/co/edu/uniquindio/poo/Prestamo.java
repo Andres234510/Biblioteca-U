@@ -29,7 +29,7 @@ public class Prestamo {
     public final double calcularCosto() {
         double total = 0;
         for (DetallePrestamo detalle : detallePrestamos) {
-            //total += detalle.getCantidad() * detalle.getLibro().consultarDisponibilidad() ? 10 : 0; // Precio fijo por libro
+            total += detalle.getCantidad(); //* detalle.getLibro().consultarDisponibilidad() ? 10 : 0; // Precio fijo por libro
         }
         return total;
     }
