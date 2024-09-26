@@ -1,30 +1,38 @@
 package co.edu.uniquindio.poo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class Estudiante extends Persona {
-    private List<Prestamo> prestamosRealizados;
 
-    // Constructor
-    public Estudiante(String nombre, String cedula, String telefono, String correo) {
-        super(nombre, cedula, telefono, correo);
-        this.prestamosRealizados = new ArrayList<>();
+    private boolean estado;
+    private Collection<Prestamo> prestamos;
+
+    public Estudiante(String nombre, String cedula, String correo, int telefono, boolean estado) {
+        super(nombre, cedula, correo, telefono);
+        this.estado = estado;
+        prestamos = new LinkedList<>();
     }
 
-    public void solicitarPrestamo(Prestamo prestamo) {
-        prestamosRealizados.add(prestamo);
+    public boolean isEstado() {
+        return estado;
     }
 
-    public List<Prestamo> consultarPrestamos() {
-        return prestamosRealizados;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
-    public List<Prestamo> getPrestamosRealizados() {
-        return prestamosRealizados;
+    public Collection<Prestamo> getPrestamos() {
+        return prestamos;
     }
 
-    public void setPrestamosRealizados(List<Prestamo> prestamosRealizados) {
-        this.prestamosRealizados = prestamosRealizados;
+    public void setPrestamos(Collection<Prestamo> prestamos) {
+        this.prestamos = prestamos;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante [estado=" + estado + ", prestamos=" + prestamos + "]";
+    }
+
 }

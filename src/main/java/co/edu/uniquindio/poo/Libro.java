@@ -1,38 +1,22 @@
 package co.edu.uniquindio.poo;
 
+import java.time.LocalDate;
+
 public class Libro {
-    private String codigo;
-    private String isbn;
-    private String autor;
-    private String titulo;
-    private String editorial;
+
+    private String codigo, isbn, autor, titulo, editorial;
     private int unidadesDisponibles;
+    private LocalDate fechaPublicacion;
+    private boolean estado;
 
-    // Constructor
-    public Libro(String codigo, String isbn, String autor, String titulo, String editorial, int unidadesDisponibles) {
-        this.codigo = codigo;
-        this.isbn = isbn;
-        this.autor = autor;
-        this.titulo = titulo;
-        this.editorial = editorial;
-        this.unidadesDisponibles = unidadesDisponibles;
-    }
-
-    public boolean consultarDisponibilidad() {
-        return unidadesDisponibles > 0;
-    }
-
-    public void reemplazarLibro(Libro nuevoLibro) {
-        this.codigo = nuevoLibro.codigo;
-        this.isbn = nuevoLibro.isbn;
-        this.autor = nuevoLibro.autor;
-        this.titulo = nuevoLibro.titulo;
-        this.editorial = nuevoLibro.editorial;
-        this.unidadesDisponibles = nuevoLibro.unidadesDisponibles;
-    }
-
-    public String getTitulo() {
-        return titulo;
+    public Libro(String codigo, String isbn, String autor, String titulo, String editorial, int unidadesDisponibles, LocalDate fechaPublicacion){
+        this.codigo=codigo;
+        this.isbn=isbn;
+        this.autor=autor;
+        this.editorial=editorial;
+        this.titulo=titulo;
+        this.unidadesDisponibles=unidadesDisponibles;
+        this.fechaPublicacion=fechaPublicacion;
     }
 
     public String getCodigo() {
@@ -59,6 +43,14 @@ public class Libro {
         this.autor = autor;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public String getEditorial() {
         return editorial;
     }
@@ -74,4 +66,30 @@ public class Libro {
     public void setUnidadesDisponibles(int unidadesDisponibles) {
         this.unidadesDisponibles = unidadesDisponibles;
     }
+
+    public LocalDate getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(LocalDate fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro [codigo=" + codigo + ", isbn=" + isbn + ", autor=" + autor + ", titulo=" + titulo + ", editorial="
+                + editorial + ", unidadesDisponibles=" + unidadesDisponibles + ", fechaPublicacion=" + fechaPublicacion
+                + ", estado=" + estado + "]";
+    }
+
+    
+    
 }

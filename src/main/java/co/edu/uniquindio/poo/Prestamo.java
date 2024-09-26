@@ -1,45 +1,33 @@
 package co.edu.uniquindio.poo;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class Prestamo {
+
     private String codigo;
-    private Date fechaPrestamo;
-    private Date fechaEntrega;
-    private double costo;
+    private LocalDate fechaPrestamo, fechaEntrega;
+    private double total;
     private Bibliotecario bibliotecario;
     private Estudiante estudiante;
-    private List<DetallePrestamo> detallePrestamos;
+    private Collection<DetallePrestamo> detallePrestamos;
 
-    // Constructor
-    public Prestamo(String codigo, Date fechaPrestamo, Date fechaEntrega, Bibliotecario bibliotecario, Estudiante estudiante, List<DetallePrestamo> detallePrestamos) {
+    public Prestamo(String codigo, LocalDate fechaPrestamo, LocalDate fechaEntrega, Bibliotecario bibliotecario,
+            Estudiante estudiante) {
         this.codigo = codigo;
-        this.fechaPrestamo = fechaPrestamo;
         this.fechaEntrega = fechaEntrega;
-        this.bibliotecario = bibliotecario;
-        this.estudiante = estudiante;
-        this.detallePrestamos = detallePrestamos;
-        this.costo = calcularCosto();
+        this.fechaPrestamo = fechaPrestamo;
+        detallePrestamos = new LinkedList<>();
+        this.total = calcularTotal();
     }
 
-    /**
-     * @return
-     */
-    public final double calcularCosto() {
+    public double calcularTotal() {
         double total = 0;
-        for (DetallePrestamo detalle : detallePrestamos) {
-            total += detalle.getCantidad(); //* detalle.getLibro().consultarDisponibilidad() ? 10 : 0; // Precio fijo por libro
+        for (DetallePrestamo detallePrestamo : detallePrestamos) {
+            total += detallePrestamo.getSubTotal();
         }
         return total;
-    }
-
-    public void entregarPrestamo() {
-        // Lógica de entrega del préstamo
-    }
-
-    public List<DetallePrestamo> getDetallePrestamos() {
-        return detallePrestamos;
     }
 
     public String getCodigo() {
@@ -50,28 +38,28 @@ public class Prestamo {
         this.codigo = codigo;
     }
 
-    public Date getFechaPrestamo() {
+    public LocalDate getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public void setFechaPrestamo(Date fechaPrestamo) {
+    public void setFechaPrestamo(LocalDate fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Date getFechaEntrega() {
+    public LocalDate getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(Date fechaEntrega) {
+    public void setFechaEntrega(LocalDate fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public double getCosto() {
-        return costo;
+    public double getTotal() {
+        return total;
     }
 
-    public void setCosto(double costo) {
-        this.costo = costo;
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public Bibliotecario getBibliotecario() {
@@ -90,7 +78,19 @@ public class Prestamo {
         this.estudiante = estudiante;
     }
 
-    public void setDetallePrestamos(List<DetallePrestamo> detallePrestamos) {
+    public Collection<DetallePrestamo> getDetallePrestamos() {
+        return detallePrestamos;
+    }
+
+    public void setDetallePrestamos(Collection<DetallePrestamo> detallePrestamos) {
         this.detallePrestamos = detallePrestamos;
     }
+
+    @Override
+    public String toString() {
+        return "Prestamo [codigo=" + codigo + ", fechaPrestamo=" + fechaPrestamo + ", fechaEntrega=" + fechaEntrega
+                + ", total=" + total + ", bibliotecario=" + bibliotecario + ", estudiante=" + estudiante
+                + ", detallePrestamos=" + detallePrestamos + "]";
+    }
+
 }
