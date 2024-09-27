@@ -11,12 +11,13 @@ public class DetallePrestamo {
         this.cantidad=cantidad;
         this.prestamo=prestamo;
         this.libro=libro;
-        //this.subTotal=calcularSubtotal();
+        this.subTotal=calcularSubtotal();
     }
 
-    /*public double calcularSubtotal(){
-        return cantidad*libro.get
-    }*/
+    public final double calcularSubtotal() {
+        return cantidad * libro.getPrecio();
+    }
+    
 
     public int getCantidad() {
         return cantidad;

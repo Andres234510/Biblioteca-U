@@ -22,7 +22,7 @@ public class Prestamo {
         this.total = calcularTotal();
     }
 
-    public double calcularTotal() {
+    public final double calcularTotal() {
         double total = 0;
         for (DetallePrestamo detallePrestamo : detallePrestamos) {
             total += detallePrestamo.getSubTotal();

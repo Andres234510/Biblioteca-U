@@ -8,16 +8,27 @@ public class Libro {
     private int unidadesDisponibles;
     private LocalDate fechaPublicacion;
     private boolean estado;
+    private double precio;
 
-    public Libro(String codigo, String isbn, String autor, String titulo, String editorial, int unidadesDisponibles, LocalDate fechaPublicacion){
-        this.codigo=codigo;
-        this.isbn=isbn;
-        this.autor=autor;
-        this.editorial=editorial;
-        this.titulo=titulo;
-        this.unidadesDisponibles=unidadesDisponibles;
-        this.fechaPublicacion=fechaPublicacion;
+    public Libro(String codigo, String isbn, String autor, String titulo, String editorial, int unidadesDisponibles, LocalDate fechaPublicacion, double precio){
+        this.codigo = codigo;
+        this.isbn = isbn;
+        this.autor = autor;
+        this.titulo = titulo;
+        this.editorial = editorial;
+        this.unidadesDisponibles = unidadesDisponibles;
+        this.fechaPublicacion = fechaPublicacion;
+        this.precio = precio;
     }
+    
+    public double getPrecio() {
+        return precio;
+    }
+    
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    
 
     public String getCodigo() {
         return codigo;
