@@ -220,9 +220,128 @@ public class App {
 
     private static void administrarPrestamos(Biblioteca biblioteca, Scanner scanner) {
         System.out.println("\n--- Administrar Préstamos ---");
-        // Implementar lógica de creación y gestión de préstamos similar a los ejemplos anteriores.
-        // Métodos como agregarPrestamo, adicionarLibroAlPrestamo, entregarPrestamo y consultarPrestamoPorCodigo.
+        System.out.println("1. Crear nuevo préstamo");
+        System.out.println("2. Adicionar libro al préstamo");
+        System.out.println("3. Entregar préstamo");
+        System.out.println("4. Consultar préstamo por código");
+        System.out.print("Seleccione una opción: ");
+        int opcion = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer
+    
+        switch (opcion) {
+            case 1:
+                // Crear un nuevo préstamo
+                System.out.print("Ingrese el código del préstamo: ");
+                String codigoPrestamo = scanner.nextLine();
+                System.out.print("Ingrese la fecha de préstamo (yyyy-mm-dd): ");
+                LocalDate fechaPrestamo = LocalDate.parse(scanner.nextLine());
+                System.out.print("Ingrese la fecha de entrega (yyyy-mm-dd): ");
+                LocalDate fechaEntrega = LocalDate.parse(scanner.nextLine());
+                
+                System.out.println("Seleccione el bibliotecario que realiza el préstamo: ");
+                for (Bibliotecario bibliotecario : biblioteca.getBibliotecarios()) {
+                    System.out.println(bibliotecario.getCedula() + ": " + bibliotecario.getNombre());
+                }
+                System.out.print("Ingrese la cédula del bibliotecario: ");
+                String cedulaBibliotecario = scanner.nextLine();
+                Bibliotecario bibliotecario = buscarBibliotecarioPorCedula(biblioteca, cedulaBibliotecario);
+    
+                System.out.println("Seleccione el estudiante que realiza el préstamo: ");
+                for (Estudiante estudiante : biblioteca.getEstudiantes()) {
+                    System.out.println(estudiante.getCedula() + ": " + estudiante.getNombre());
+                }
+                System.out.print("Ingrese la cédula del estudiante: ");
+                String cedulaEstudiante = scanner.nextLine();
+                Estudiante estudiante = buscarEstudiantePorCedula(biblioteca, cedulaEstudiante);
+    
+                if (bibliotecario != null && estudiante != null) {
+                    Prestamo prestamo = new Prestamo(codigoPrestamo, fechaPrestamo, fechaEntrega, bibliotecario, estudiante);
+                    biblioteca.agregarPrestamo(prestamo);
+                    System.out.println("Préstamo creado exitosamente.");
+                } else {
+                    System.out.println("Bibliotecario o estudiante no encontrado.");
+                }
+                break;
+    
+            case 2:
+                // Adicionar libro a un préstamo
+                System.out.print("Ingrese el código del préstamo: ");
+                String codigoPr = scanner.nextLine();
+                Prestamo prestamoSeleccionado = biblioteca.consultarPrestamoPorCodigo(codigoPr);
+                if (prestamoSeleccionado != null) {
+                    System.out.println("Seleccione el libro a adicionar: ");
+                    for (Libro libro : biblioteca.getLibros()) {
+                        System.out.println(libro.getCodigo() + ": " + libro.getTitulo());
+                    }
+                    System.out.print("Ingrese el código del libro: ");
+                    String codigoLibro = scanner.nextLine();
+                    Libro libroSeleccionado = biblioteca.consultarLibroPorCodigo(codigoLibro);
+    
+                    if (libroSeleccionado != null && libroSeleccionado.getUnidadesDisponibles() > 0) {
+                        System.out.print("Ingrese la cantidad de unidades a adicionar: ");
+                        int cantidad = scanner.nextInt();
+                        scanner.nextLine(); // Limpiar el buffer
+                        biblioteca.adicionarLibroAlPrestamo(prestamoSeleccionado, libroSeleccionado, cantidad);
+                        System.out.println("Libro adicionado al préstamo.");
+                    } else {
+                        System.out.println("Libro no encontrado o sin unidades disponibles.");
+                    }
+                } else {
+                    System.out.println("Préstamo no encontrado.");
+                }
+                break;
+    
+            case 3:
+                // Entregar préstamo
+                System.out.print("Ingrese el código del préstamo a entregar: ");
+                String codigoEntrega = scanner.nextLine();
+                Prestamo prestamoAEntregar = biblioteca.consultarPrestamoPorCodigo(codigoEntrega);
+                if (prestamoAEntregar != null) {
+                    double costoTotal = biblioteca.entregarPrestamo(prestamoAEntregar);
+                    System.out.println("Préstamo entregado. Costo total del préstamo: $" + costoTotal);
+                } else {
+                    System.out.println("Préstamo no encontrado.");
+                }
+                break;
+    
+            case 4:
+                // Consultar préstamo por código
+                System.out.print("Ingrese el código del préstamo: ");
+                String codigoConsulta = scanner.nextLine();
+                Prestamo prestamoConsultado = biblioteca.consultarPrestamoPorCodigo(codigoConsulta);
+                if (prestamoConsultado != null) {
+                    System.out.println(prestamoConsultado);
+                } else {
+                    System.out.println("Préstamo no encontrado.");
+                }
+                break;
+    
+            default:
+                System.out.println("Opción no válida.");
+        }
     }
+    
+    // Métodos auxiliares para buscar bibliotecarios y estudiantes por cédula
+    private static Bibliotecario buscarBibliotecarioPorCedula(Biblioteca biblioteca, String cedula) {
+        for (Bibliotecario bibliotecario : biblioteca.getBibliotecarios()) {
+            if (bibliotecario.getCedula().equals(cedula)) {
+                return bibliotecario;
+            }
+        }
+        return null;
+    }
+    
+    private static Estudiante buscarEstudiantePorCedula(Biblioteca biblioteca, String cedula) {
+        for (Estudiante estudiante : biblioteca.getEstudiantes()) {
+            if (estudiante.getCedula().equals(cedula)) {
+                return estudiante;
+            }
+        }
+        return null;
+    }
+    
+
+
 
     private static void generarReportes(Biblioteca biblioteca) {
         System.out.println("\n--- Reportes ---");

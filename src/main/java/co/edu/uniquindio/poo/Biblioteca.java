@@ -81,6 +81,12 @@ public class Biblioteca {
         libros.add(libro);
     }
 
+    
+    /**
+     * Metodo para consultatar un libro el codigo
+     * @param codigo
+     * @return El nombre del libro al que le perteneceel codigo
+     */
     public Libro consultarLibroPorCodigo(String codigo) {
         for (Libro libro : libros) {
             if (libro.getCodigo().equals(codigo)) {
@@ -91,6 +97,11 @@ public class Biblioteca {
     }
 
     
+    /**
+     * Metodo para contar Prestamos Por Nombre Libro 
+     * @param titulo
+     * @return la cantida de prestamos
+     */
     public int contarPrestamosPorNombreLibro(String titulo) {
         int cantidadPrestamos = 0;
         for (Prestamo prestamo : prestamos) {
@@ -103,6 +114,11 @@ public class Biblioteca {
         return cantidadPrestamos;
     }
 
+    /**
+     * Metodo para remplazar un libro
+     * @param codigo
+     * @param nuevoLibro
+     */
     public void reemplazarLibro(String codigo, Libro nuevoLibro) {
         for (Libro libro : libros) {
             if (libro.getCodigo().equals(codigo)) {
@@ -113,12 +129,22 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * Metodo oara agregar un prestamo
+     * @param prestamo
+     */
     public void agregarPrestamo(Prestamo prestamo) {
         prestamos.add(prestamo);
         prestamo.getBibliotecario().getPrestamos().add(prestamo);
         prestamo.getEstudiante().getPrestamos().add(prestamo);
     }
 
+    /**
+     * Metodo para agregar un libro al prestamo
+     * @param prestamo
+     * @param libro
+     * @param cantidad
+     */
     public void adicionarLibroAlPrestamo(Prestamo prestamo, Libro libro, int cantidad) {
         if (libro.getUnidadesDisponibles() >= cantidad) {
             libro.setUnidadesDisponibles(libro.getUnidadesDisponibles() - cantidad);
@@ -130,6 +156,11 @@ public class Biblioteca {
         }
     }
 
+    /**
+     * Metodo para entregar el prestamo
+     * @param prestamo
+     * @return
+     */
     public double entregarPrestamo(Prestamo prestamo) {
         LocalDate fechaPrestamo = prestamo.getFechaPrestamo();
         LocalDate fechaEntrega = prestamo.getFechaEntrega();
@@ -147,6 +178,11 @@ public class Biblioteca {
         return costo;
     }
 
+    /**
+     * Metodo consultar Prestamo Por Codigo
+     * @param codigo
+     * @return la info del prestamo segun el codigo
+     */
     public Prestamo consultarPrestamoPorCodigo(String codigo) {
         for (Prestamo prestamo : prestamos) {
             if (prestamo.getCodigo().equals(codigo)) {
@@ -156,10 +192,19 @@ public class Biblioteca {
         return null; // Si no se encuentra el préstamo
     }
 
+    /**
+     * MEtodo para contar Prestamos Por Bibliotecario
+     * @param bibliotecario
+     * @return LOs prestamos hechos
+     */
     public int contarPrestamosPorBibliotecario(Bibliotecario bibliotecario) {
         return bibliotecario.getPrestamos().size();
     }
 
+    /**
+     * Metodo para obtener Estudiante Con Mas Prestamos
+     * @return Un estudiante con mayor prestamos
+     */
     public Estudiante obtenerEstudianteConMasPrestamos() {
         Estudiante mayorPrestamos = null;
         int maxPrestamos = 0;
@@ -172,6 +217,10 @@ public class Biblioteca {
         return mayorPrestamos;
     }
     
+    /**
+     * Metodo para calcular Total Dinero Recaudado
+     * @return totalRecaudado
+     */
     public double calcularTotalDineroRecaudado() {
         double totalRecaudado = 0;
         for (Prestamo prestamo : prestamos) {
@@ -180,6 +229,11 @@ public class Biblioteca {
         return totalRecaudado;
     }
 
+    /**
+     * MEtodo para calcular Pago Bibliotecario
+     * @param bibliotecario
+     * @return Total pago
+     */
     public double calcularPagoBibliotecario(Bibliotecario bibliotecario) {
         double totalPago = 0;
         LocalDate hoy = LocalDate.now();
